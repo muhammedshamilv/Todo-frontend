@@ -1,7 +1,9 @@
 import React from 'react';
 import { Button } from '../Styles/style';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
   return (
     <div className='bg-gray-200 h-screen flex justify-center items-center'>
       <form className=''>
@@ -22,6 +24,7 @@ function Login() {
           ></input>
           <Button>
             <button
+              onClick={() => navigate('/dashboard')}
               className='btn2 px-10 py-5 relative border-none bg-[#01aaf870] outline-none rounded-xl uppercase font-semibold tracking-wider overflow-hidden hover:text-teal-600'
               type='button'
             >

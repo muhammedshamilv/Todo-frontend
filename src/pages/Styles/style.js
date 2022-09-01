@@ -9,3 +9,7 @@ export const Button = styled.button`
     transform: translateX(0);
   }
 `;
+
+export const Logo = styled.div`
+  font-family: 'Bangers', cursive;
+`;
