@@ -5,7 +5,7 @@ function Register() {
   return (
     <div className='bg-gray-200 h-screen flex justify-center items-center'>
       <form className=''>
-        <div className='bg-[#afccdd]/50 flex justify-center flex-col p-2 pl-6 pr-6  items-center gap-5 md:w-96 h-96 border rounded-2xl '>
+        <div className='bg-[#afccdd]/50 flex justify-center flex-col p-2 pl-6 pr-6  items-center gap-5 mdm:w-96 h-96 border rounded-2xl '>
           <h1 className='text-[#eb9c9c] text-2xl py-3'>Register</h1>
           <input
             type='text'
