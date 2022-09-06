@@ -1,12 +1,23 @@
 import React from 'react';
+import { Textarea } from '../../pages/Styles/style';
 
 function Todo() {
   return (
-    <div className='bg-[#f99d9d] h-2/4 max-w-full flex items-center justify-center md:mx-5 md:my-14 mdm:mx-96 mdm:my-36'>
-      <form>
-        <textarea>TEXT GOES HERE</textarea>
-      </form>
-    </div>
+    <Textarea>
+      <div>
+        <div class='comment-text-area'>
+          <textarea className='textinput' placeholder='Comment'></textarea>
+        </div>
+        <div className='flex justify-center gap-3 my-2'>
+          <div>
+            <button className='bg-[#d9aaaa] rounded-lg p-2'>ADD</button>
+          </div>
+          <div>
+            <button className='bg-[#d9aaaa] rounded-lg p-2'>CLOSE</button>
+          </div>
+        </div>
+      </div>
+    </Textarea>
   );
 }
 
