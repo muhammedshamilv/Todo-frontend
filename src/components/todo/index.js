@@ -5,7 +5,7 @@ function Todo() {
   return (
     <Textarea>
       <div>
-        <div class='comment-text-area'>
+        <div className='comment-text-area'>
           <textarea className='textinput' placeholder='Comment'></textarea>
         </div>
         <div className='flex justify-center gap-3 my-2'>
