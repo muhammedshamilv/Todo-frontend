@@ -22,6 +22,13 @@ export const Textarea = styled.div`
     margin-right: auto;
     margin-top: 12px;
   }
+  .comment-text-area-heading {
+    width: calc(100% - 45px);
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 12px;
+  }
 
   .textinput {
     width: 100%;
