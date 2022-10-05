@@ -22,7 +22,6 @@ const Login = observer(() => {
     } else {
       alert('user not found');
     }
-    console.log('user', response.data);
   };
 
   return (

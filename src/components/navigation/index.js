@@ -5,7 +5,6 @@ import { Logo } from '../../pages/Styles/style';
 import Todo from '../todo';
 function Navigation() {
   const [show, setShow] = useState(false);
-
   const user = JSON.parse(localStorage.getItem('user'));
   const userName = user?.user_name.toUpperCase();
   return (
@@ -36,7 +35,12 @@ function Navigation() {
         >
           <i className='fa-solid fa-plus text-2xl '> add</i>
         </div>
-        <div className='px-3 py-2 ml-auto  spm:hidden'>
+        <div
+          className='px-3 py-2 ml-auto  spm:hidden'
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
           <i className='fa-solid fa-plus text-2xl '></i>
         </div>
         <div className=' px-3 py-2 my-2 mx-2 mb:hidden'>{userName}</div>

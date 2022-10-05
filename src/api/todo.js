@@ -1,6 +1,6 @@
 import axios from './axios';
 
-export const AddTodo = (userId, description, title) => {
+const AddTodo = (userId, description, title) => {
   return axios
     .post(`/${userId}/todo/create`, {
       description: description,
@@ -12,3 +12,12 @@ export const AddTodo = (userId, description, title) => {
       (error) => error.response
     );
 };
+
+const ListTodo = (userId) => {
+  return axios.get(`/${userId}/all/todos`).then(
+    (res) => res,
+    (error) => error.response
+  );
+};
+
+export { AddTodo, ListTodo };

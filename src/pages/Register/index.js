@@ -21,7 +21,6 @@ const Register = observer(() => {
     } else {
       alert('something went wrong');
     }
-    console.log('user', response.data);
   };
 
   return (
