@@ -1,6 +1,13 @@
 import React from 'react';
+import { useState } from 'react';
+import { userLogout } from '../../api/auth';
 import { Logo } from '../../pages/Styles/style';
+import Todo from '../todo';
 function Navigation() {
+  const [show, setShow] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userName = user?.user_name.toUpperCase();
   return (
     <div>
       <div className='bg-[#bfeaf5] w-screen h-16 flex'>
@@ -21,17 +28,29 @@ function Navigation() {
             ></input>
           </form>
         </div>
-        <div className='px-3 py-2 ml-auto bg-[#9e9595] sp:hidden my-2 mx-2 rounded-xl'>
+        <div
+          className='px-3 py-2 ml-auto bg-[#9e9595] sp:hidden my-2 mx-2 rounded-xl'
+          onClick={() => {
+            setShow(!show);
+          }}
+        >
           <i className='fa-solid fa-plus text-2xl '> add</i>
         </div>
         <div className='px-3 py-2 ml-auto  spm:hidden'>
           <i className='fa-solid fa-plus text-2xl '></i>
         </div>
-        <div className='bg-white px-3 py-2 my-2 mx-2 mb:hidden'>shamil</div>
-        <div className='bg-white px-3 py-2 my-2 mx-2 rounded-full'>
+        <div className=' px-3 py-2 my-2 mx-2 mb:hidden'>{userName}</div>
+        <div
+          className='bg-white px-3 py-2 my-2 mx-2 rounded-full'
+          onClick={() => {
+            localStorage.removeItem('user');
+            userLogout();
+          }}
+        >
           <img src='' alt='pic'></img>
         </div>
       </div>
+      <Todo show={show} setShow={setShow}></Todo>
     </div>
   );
 }

@@ -25,4 +25,11 @@ const userRegistration = (username, email, password) => {
     );
 };
 
-export { userLogin, userRegistration };
+const userLogout = () => {
+  return axios.get('/logout').then(
+    (res) => res,
+    (error) => error.response
+  );
+};
+
+export { userLogin, userRegistration, userLogout };
