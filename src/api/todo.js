@@ -20,4 +20,23 @@ const ListTodo = (userId) => {
   );
 };
 
-export { AddTodo, ListTodo };
+const SelectTodo = (noteId) => {
+  return axios.get(`/todos/${noteId}`).then(
+    (res) => res,
+    (error) => error.response
+  );
+};
+
+const EditTodo = (noteId, description, title) => {
+  return axios
+    .put(`/todos/${noteId}/update`, {
+      description: description,
+      title: title,
+    })
+    .then(
+      (res) => res,
+      (error) => error.response
+    );
+};
+
+export { AddTodo, ListTodo, SelectTodo, EditTodo };

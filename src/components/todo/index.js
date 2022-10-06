@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { AddTodo } from '../../api/todo';
+import { AddTodo, EditTodo } from '../../api/todo';
 import { Textarea } from '../../pages/Styles/style';
-import { useStore } from '../../store';
 import { observer } from 'mobx-react-lite';
 
-const Todo = observer(({ show, setShow }) => {
+const Todo = observer(({ show, setShow, btn, noteDetails }) => {
   const user = JSON.parse(localStorage.getItem('user'));
   const userId = user?.id;
-  const { todoStore } = useStore();
-  const { todoList } = todoStore;
   const [description, setDescription] = useState('');
   const [title, setTitle] = useState('');
   const onAdd = async () => {
@@ -17,7 +14,17 @@ const Todo = observer(({ show, setShow }) => {
       if (response && response.status === 200) {
         console.log('success');
         setShow(!show);
-        todoList.content.rows.unshift({ title, description });
+      } else if (response && response.status === 400) {
+        alert(response.data);
+      }
+    }
+  };
+  const onEdit = async (noteId) => {
+    if (description) {
+      const response = await EditTodo(noteId, description, title);
+      if (response && response.status === 200) {
+        console.log('success');
+        setShow(!show);
       } else if (response && response.status === 400) {
         alert(response.data);
       }
@@ -31,6 +38,9 @@ const Todo = observer(({ show, setShow }) => {
             <textarea
               className='textinput'
               placeholder='Title'
+              defaultValue={
+                noteDetails && noteDetails.title && noteDetails.title
+              }
               onChange={(e) => setTitle(e.target.value)}
             ></textarea>
           </div>
@@ -38,14 +48,29 @@ const Todo = observer(({ show, setShow }) => {
             <textarea
               className='textinput'
               placeholder='Description'
+              defaultValue={
+                noteDetails &&
+                noteDetails.description &&
+                noteDetails.description
+              }
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
           <div className='flex justify-center gap-3 my-2'>
-            <div onClick={() => onAdd()}>
-              <button className='bg-[#d9aaaa] rounded-lg p-2'>ADD</button>
+            <div
+              onClick={() =>
+                btn ? onEdit(noteDetails && noteDetails.id) : onAdd()
+              }
+            >
+              <button className='bg-[#d9aaaa] rounded-lg p-2'>
+                {btn ? btn : 'ADD'}
+              </button>
             </div>
-            <div onClick={() => setShow(!show)}>
+            <div
+              onClick={() => {
+                setShow(!show);
+              }}
+            >
               <button className='bg-[#d9aaaa] rounded-lg p-2'>CLOSE</button>
             </div>
           </div>

@@ -8,7 +8,7 @@ function Navigation() {
   const user = JSON.parse(localStorage.getItem('user'));
   const userName = user?.user_name.toUpperCase();
   return (
-    <div>
+    <div className='fixed'>
       <div className='bg-[#bfeaf5] w-screen h-16 flex'>
         <div className='px-6 py-3'>
           <i className='fa-solid fa-bars text-2xl'></i>
