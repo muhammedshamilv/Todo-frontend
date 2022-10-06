@@ -39,4 +39,11 @@ const EditTodo = (noteId, description, title) => {
     );
 };
 
-export { AddTodo, ListTodo, SelectTodo, EditTodo };
+const DeleteTodo = (noteId) => {
+  return axios.delete(`/todos/${noteId}`).then(
+    (res) => res,
+    (error) => error.response
+  );
+};
+
+export { AddTodo, ListTodo, SelectTodo, EditTodo, DeleteTodo };
