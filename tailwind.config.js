@@ -6,6 +6,9 @@ module.exports = {
       width: {
         128: '32rem',
       },
+      minWidth: {
+        3: '350px',
+      },
       screens: {
         '3xl': { max: '2500px' },
 

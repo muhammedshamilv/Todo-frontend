@@ -44,11 +44,11 @@ const TodoCard = observer(() => {
   return (
     <div className='pt-16'>
       {edit && <Todo show={true} btn={'Edit'} noteDetails={noteDetails}></Todo>}
-      <div className='px-10 pt-12 grid grid-cols-3 lgm:grid-cols-4 lgm:gap-x-1 md:grid-cols-2 gap-3 overflow-x-hidden'>
+      <div className='px-10 pt-12 grid grid-cols-3 lgm:grid-cols-4 lgm:gap-x-1 md:grid-cols-1 md:place-items-center gap-3 overflow-x-hidden'>
         {todoList &&
           todoList.content &&
           todoList.content.rows.map((item, index) => (
-            <div className='p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700'>
+            <div className='p-6 max-w-sm md:min-w-3 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700'>
               <h5 className='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
                 {item.title}
               </h5>
