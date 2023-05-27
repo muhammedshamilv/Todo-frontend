@@ -15,7 +15,6 @@ const Register = observer(() => {
   const onSubmitForm = async () => {
     const response = await userRegistration(username, email, password);
     if (response && response.status === 200) {
-      console.log('success');
       navigate('/dashboard');
       setUser(response.data);
     } else {

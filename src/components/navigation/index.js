@@ -1,12 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { userLogout } from '../../api/auth';
 import { Logo } from '../../pages/Styles/style';
 import Todo from '../todo';
-function Navigation() {
-  const [show, setShow] = useState(false);
+import { useStore } from '../../store';
+const Navigation = observer(() => {
   const user = JSON.parse(localStorage.getItem('user'));
   const userName = user?.user_name.toUpperCase();
+  const { todoStore } = useStore();
+  const { setShow, show, setBtn, setNoteDetails } = todoStore;
   return (
     <div className='fixed'>
       <div className='bg-[#bfeaf5] w-screen h-16 flex'>
@@ -31,6 +34,8 @@ function Navigation() {
           className='px-3 py-2 ml-auto bg-[#9e9595] sp:hidden my-2 mx-2 rounded-xl'
           onClick={() => {
             setShow(!show);
+            setBtn('ADD');
+            setNoteDetails('');
           }}
         >
           <i className='fa-solid fa-plus text-2xl '> add</i>
@@ -54,9 +59,9 @@ function Navigation() {
           <img src='' alt='pic'></img>
         </div>
       </div>
-      <Todo show={show} setShow={setShow}></Todo>
+      <Todo></Todo>
     </div>
   );
-}
+});
 
 export default Navigation;

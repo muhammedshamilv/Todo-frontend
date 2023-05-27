@@ -1,34 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AddTodo, EditTodo } from '../../api/todo';
 import { Textarea } from '../../pages/Styles/style';
 import { observer } from 'mobx-react-lite';
-
-const Todo = observer(({ show, setShow, btn, noteDetails }) => {
+import { useStore } from '../../store';
+const Todo = observer(() => {
   const user = JSON.parse(localStorage.getItem('user'));
   const userId = user?.id;
   const [description, setDescription] = useState('');
+  const { todoStore } = useStore();
+  const {
+    setReload,
+    reload,
+    setShow,
+    show,
+    setNoteDetails,
+    noteDetails,
+    setBtn,
+    btn
+  } = todoStore;
   const [title, setTitle] = useState('');
   const onAdd = async () => {
-    if (description) {
+    if (description && title) {
       const response = await AddTodo(userId, description, title);
       if (response && response.status === 200) {
-        console.log('success');
         setShow(!show);
+        setReload(!reload);
+        setDescription('');
+        setTitle('');
       } else if (response && response.status === 400) {
         alert(response.data);
       }
     }
   };
+
+  useEffect(() => {
+    if (noteDetails) {
+      setTitle(noteDetails.title);
+      setDescription(noteDetails.description);
+    }
+  }, [noteDetails]);
+
   const onEdit = async (noteId) => {
     if (description) {
       const response = await EditTodo(noteId, description, title);
       if (response && response.status === 200) {
-        console.log('success');
         setShow(!show);
+        setReload(!reload);
+        setDescription('');
+        setTitle('');
       } else if (response && response.status === 400) {
         alert(response.data);
       }
     }
+  };
+  const handleClose = () => {
+    setShow(false);
   };
   return (
     <Textarea>
@@ -59,18 +85,14 @@ const Todo = observer(({ show, setShow, btn, noteDetails }) => {
           <div className='flex justify-center gap-3 my-2'>
             <div
               onClick={() =>
-                btn ? onEdit(noteDetails && noteDetails.id) : onAdd()
+                btn == 'EDIT' ? onEdit(noteDetails && noteDetails.id) : onAdd()
               }
             >
               <button className='bg-[#d9aaaa] rounded-lg p-2'>
                 {btn ? btn : 'ADD'}
               </button>
             </div>
-            <div
-              onClick={() => {
-                setShow(!show);
-              }}
-            >
+            <div onClick={handleClose}>
               <button className='bg-[#d9aaaa] rounded-lg p-2'>CLOSE</button>
             </div>
           </div>

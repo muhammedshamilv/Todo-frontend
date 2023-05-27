@@ -7,9 +7,18 @@ import { useStore } from '../../store';
 import Todo from '../todo';
 const TodoCard = observer(() => {
   const { todoStore } = useStore();
-  const { setTodoList, todoList } = todoStore;
+  const {
+    setTodoList,
+    todoList,
+    setReload,
+    reload,
+    setShow,
+    show,
+    setNoteDetails,
+    noteDetails,
+    setBtn
+  } = todoStore;
   const [edit, setEdit] = useState(false);
-  const [noteDetails, setNoteDetails] = useState();
   const user = JSON.parse(localStorage.getItem('user'));
   const userId = user?.id;
 
@@ -24,26 +33,31 @@ const TodoCard = observer(() => {
         }
       }
     })();
-  }, [userId]);
+  }, [userId, reload]);
   const onSelectTodo = async (noteId) => {
     const resp = await SelectTodo(noteId);
     if (resp && resp.status === 200) {
       setNoteDetails(resp.data);
+      setEdit(!edit);
+      setShow(true);
+      setBtn('EDIT');
     } else {
       console.error(resp.data.error);
     }
   };
+
   const onDelete = async (noteId) => {
     const resp = await DeleteTodo(noteId);
     if (resp && resp.status === 200) {
       alert('success');
+      setReload(!reload);
     } else {
       console.error(resp.data.error);
     }
   };
   return (
     <div className='pt-16'>
-      {edit && <Todo show={true} btn={'Edit'} noteDetails={noteDetails}></Todo>}
+      {edit && <Todo></Todo>}
       <div className='px-10 pt-12 grid grid-cols-3 lgm:grid-cols-4 lgm:gap-x-1 md:grid-cols-1 md:place-items-center gap-3 overflow-x-hidden'>
         {todoList &&
           todoList.content &&
@@ -55,10 +69,10 @@ const TodoCard = observer(() => {
               <p className='mb-3 font-normal text-gray-700 dark:text-gray-400'>
                 {item.description}
               </p>
+
               <div className='flex justify-between'>
                 <div
                   onClick={() => {
-                    setEdit(!edit);
                     onSelectTodo(item.id);
                   }}
                   className='inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
